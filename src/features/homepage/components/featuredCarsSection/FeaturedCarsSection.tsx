@@ -4,90 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Card from "@/components/Card";
+import { fakeCarData } from "./falkeCarData";
 const FeaturedCarsSection = () => {
   // const { data, error, isLoading } = useGetBestSellingProductsQuery(undefined);
-  const { data, error, isLoading } = {
-    data: {
-      success: true,
-      data: [
-        {
-          _id: "1",
-          name: "Tesla Model S",
-          description:
-            "A high-performance electric sedan with cutting-edge technology.",
-          price: 79999,
-          ratings: 4.8,
-          images: [
-            "https://example.com/images/tesla_model_s_1.jpg",
-            "https://example.com/images/tesla_model_s_2.jpg",
-          ],
-          isFeatured: true,
-          isAvailable: true,
-          cartQuantity: 0,
-        },
-        {
-          _id: "2",
-          name: "Ford Mustang",
-          description:
-            "A classic American muscle car with powerful engine options.",
-          price: 55999,
-          ratings: 4.5,
-          images: [
-            "https://example.com/images/ford_mustang_1.jpg",
-            "https://example.com/images/ford_mustang_2.jpg",
-          ],
-          isFeatured: false,
-          isAvailable: true,
-        },
-        {
-          _id: "3",
-          name: "BMW X5",
-          description:
-            "A luxury SUV offering both comfort and performance for the modern driver.",
-          price: 65999,
-          ratings: 4.6,
-          images: [
-            "https://example.com/images/bmw_x5_1.jpg",
-            "https://example.com/images/bmw_x5_2.jpg",
-          ],
-          isFeatured: true,
-          isAvailable: false,
-        },
-        {
-          _id: "4",
-          name: "Audi A4",
-          description:
-            "A sleek and stylish sedan with advanced technology and a refined interior.",
-          price: 49999,
-          ratings: 4.4,
-          images: [
-            "https://example.com/images/audi_a4_1.jpg",
-            "https://example.com/images/audi_a4_2.jpg",
-          ],
-          isFeatured: false,
-          isAvailable: true,
-          cartQuantity: 2,
-        },
-        {
-          _id: "5",
-          name: "Chevrolet Bolt EV",
-          description:
-            "An affordable electric vehicle with impressive range and technology.",
-          price: 34999,
-          ratings: 4.7,
-          images: [
-            "https://example.com/images/chevrolet_bolt_ev_1.jpg",
-            "https://example.com/images/chevrolet_bolt_ev_2.jpg",
-          ],
-          isFeatured: false,
-          isAvailable: true,
-        },
-      ],
-    },
-    error: false,
-    isLoading: false,
-  };
-
+  const { data, error, isLoading } = fakeCarData;
   const settings = {
     dots: true,
     infinite: true,

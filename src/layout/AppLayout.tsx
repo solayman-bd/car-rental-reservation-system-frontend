@@ -1,5 +1,6 @@
+import FooterSection from "@/components/FooterSection";
 import Navbar from "@/components/NavBar";
-import React from "react";
+
 import { Outlet } from "react-router-dom";
 
 const AppLayout = () => {
@@ -7,6 +8,7 @@ const AppLayout = () => {
     <div>
       <Navbar />
       <Outlet />
+      <FooterSection />
     </div>
   );
 };

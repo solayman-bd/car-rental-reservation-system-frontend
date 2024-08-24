@@ -8,31 +8,39 @@ type TNavItem = {
   url: string;
   active: boolean;
 };
-export const navItemData: TNavItem[] = [
-  { id: 1, name: "Home", url: "/", active: true },
-  { id: 5, name: "About Us", url: "/about", active: false },
-  { id: 2, name: "Booking", url: "/booking", active: false },
 
-  {
-    id: 4,
-    name: "Contact",
-    url: "/contact",
-    active: false,
-  },
-  {
-    id: 50,
-    name: "Login",
-    url: "/login",
-    active: false,
-  },
-  // {
-  //   id: 51,
-  //   name: "Sign Up",
-  //   url: "/sign-up",
-  //   active: false,
-  // },
-];
 const Navbar: FC = () => {
+  const navItemData: TNavItem[] = [
+    { id: 1, name: "Home", url: "/", active: true },
+    { id: 5, name: "About Us", url: "/about", active: false },
+    { id: 2, name: "Booking", url: "/booking", active: false },
+    {
+      id: 51,
+      name: "Cars",
+      url: "/cars",
+      active: false,
+    },
+
+    {
+      id: 4,
+      name: "Contact",
+      url: "/contact",
+      active: false,
+    },
+    {
+      id: 50,
+      name: "Login",
+      url: "/login",
+      active: false,
+    },
+    // {
+    //   id: 51,
+    //   name: "Sign Up",
+    //   url: "/sign-up",
+    //   active: false,
+    // },
+  ];
+
   const [navItems, setNavItems] = useState<TNavItem[]>(navItemData);
   const [isOpen, setIsOpen] = useState(false);
 

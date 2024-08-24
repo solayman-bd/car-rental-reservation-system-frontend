@@ -12,13 +12,17 @@ export interface ICar {
   isFeatured: boolean;
   isAvailable: boolean;
   cartQuantity?: number;
+  type: string;
+  features: string[];
+  customerReviews: { customerId: string; name: string; review: string }[];
 }
 
 interface ICarCardProps {
   car: ICar;
+  isProductListPage?: boolean;
 }
 
-const Card: React.FC<ICarCardProps> = ({ car }) => {
+const Card: React.FC<ICarCardProps> = ({ car, isProductListPage }) => {
   //   const navigate = useNavigate();
   //   const dispatch = useDispatch();
   const handleAddToCart = (car: ICar) => {
@@ -35,7 +39,7 @@ const Card: React.FC<ICarCardProps> = ({ car }) => {
     <div className="m-1 h-[400px] flex flex-col overflow-hidden rounded-lg border border-gray-200  shadow-md">
       <Link
         className="relative mx-3 mt-3 flex justify-center h-60 overflow-hidden rounded-xl"
-        to={`/product/${car._id}`}
+        to={`/cars/${car._id}`}
       >
         <img
           className="object-cover min-w-full"
@@ -91,21 +95,47 @@ const Card: React.FC<ICarCardProps> = ({ car }) => {
           onClick={() => handleAddToCart(car)}
           disabled={car.isAvailable == false}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="mr-2 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          {car.isAvailable == false ? "Unavailable" : "Book Now"}
+          {isProductListPage ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2 h-6 w-6"
+              width="68"
+              height="68"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#ffffff"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M11.999 3l.001 17" />
+              <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          )}
+
+          {isProductListPage
+            ? car.isAvailable
+              ? "View Detail"
+              : "Unavailable"
+            : car.isAvailable
+            ? "Book Now"
+            : "Unavailable"}
         </button>
       </div>
     </div>
