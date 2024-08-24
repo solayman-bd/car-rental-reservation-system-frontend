@@ -36,7 +36,7 @@ const HeroSection = () => {
             className="p-2 rounded-lg border border-gray-300 flex-1"
           />
           <Button className="font-bold text-lg bg-blue-500" size={"lg"}>
-            Book Now
+            Search
           </Button>
         </div>
       </div>

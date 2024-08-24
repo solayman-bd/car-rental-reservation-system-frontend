@@ -24,13 +24,13 @@ const Navbar: FC = () => {
     {
       id: 4,
       name: "Contact",
-      url: "/contact",
+      url: "/about",
       active: false,
     },
     {
       id: 50,
       name: "Login",
-      url: "/login",
+      url: "/sign-in",
       active: false,
     },
     // {

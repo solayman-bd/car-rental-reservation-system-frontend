@@ -3,12 +3,22 @@ import CarDetailPage from "@/features/carDetailPage/CarDetailPage";
 import CarsPage from "@/features/carsPage/CarsPage";
 import { HomePage } from "@/features/homePage/HomePage";
 import NotFoundPage from "@/features/NotFoundPage/NotFoundPage";
+import SignInPage from "@/features/signInPage/SignInPage";
+import SignUpPage from "@/features/signUpPage/signUpPage";
 import AppLayout from "@/layout/AppLayout";
 import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFoundPage />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUpPage />,
+  },
+  {
+    path: "/sign-in",
+    element: <SignInPage />,
   },
   {
     element: <AppLayout />,
