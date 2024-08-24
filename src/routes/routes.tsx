@@ -1,9 +1,9 @@
+import AboutUs from "@/features/aboutUs/AboutUs";
 import CarDetailPage from "@/features/carDetailPage/CarDetailPage";
 import CarsPage from "@/features/carsPage/CarsPage";
 import { HomePage } from "@/features/homePage/HomePage";
 import NotFoundPage from "@/features/NotFoundPage/NotFoundPage";
 import AppLayout from "@/layout/AppLayout";
-
 import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
   {
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/cars/:carId",
         element: <CarDetailPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
       },
     ],
   },

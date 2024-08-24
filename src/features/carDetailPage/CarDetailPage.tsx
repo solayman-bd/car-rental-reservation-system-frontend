@@ -61,7 +61,7 @@ const CarDetailPage: React.FC = () => {
 
   return (
     <>
-      <SectionsWraper heading={`Car details of ${product?.name}`}>
+      <SectionsWraper heading={`Car Detail`}>
         <div className="p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 hover:cursor-pointer text-gray-600">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row -mx-4 justify-center items-center">

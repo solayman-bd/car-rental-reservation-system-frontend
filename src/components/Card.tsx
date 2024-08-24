@@ -102,11 +102,11 @@ const Card: React.FC<ICarCardProps> = ({ car, isProductListPage }) => {
               width="68"
               height="68"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="#ffffff"
               fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M11.999 3l.001 17" />
