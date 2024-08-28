@@ -1,5 +1,10 @@
+import { useSignInMutation } from "@/redux/features/auth/authApi";
+import { setUser, TUser } from "@/redux/features/auth/authSlice";
+import { verifyToken } from "@/utils/verifyToken";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface IFormData {
   email: string;
@@ -36,7 +41,7 @@ const InputField: React.FC<{
       name={name}
       value={value}
       onChange={onChange}
-      className={`w-full border-gray-300 rounded-md shadow-sm text-lg p-2 ${
+      className={`w-full border-gray-300 rounded-md  shadow-md text-lg p-2 ${
         error ? "border-red-500" : ""
       }`}
       required={required}
@@ -47,11 +52,13 @@ const InputField: React.FC<{
 
 const SignInPage = () => {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState<IFormData>({
-    email: "",
-    password: "",
-  });
+  const dispatch = useDispatch();
+  const [signIn] = useSignInMutation();
+  const defaultValues = {
+    email: "soldaymdan@example.com",
+    password: "password123",
+  };
+  const [formData, setFormData] = useState<IFormData>(defaultValues);
 
   const [errors, setErrors] = useState<IErrors>({
     email: "",
@@ -89,11 +96,27 @@ const SignInPage = () => {
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      // Simulate successful login
-      navigate("/");
+      const toastId = toast.loading("Logging in");
+
+      try {
+        const userInfo = {
+          email: formData.email,
+          password: formData.password,
+        };
+        const res = await signIn(userInfo).unwrap();
+        const user = verifyToken(res.accessToken) as TUser;
+        if (user) {
+          dispatch(setUser({ user: res.data, token: res.accessToken }));
+          toast.success("Logged in", { id: toastId, duration: 2000 });
+          navigate("/");
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (err) {
+        toast.error("Something went wrong", { id: toastId, duration: 2000 });
+      }
     }
   };
 

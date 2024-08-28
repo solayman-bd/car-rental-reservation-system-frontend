@@ -1,5 +1,9 @@
+import { useSignUpMutation } from "@/redux/features/auth/authApi";
+import { verifyToken } from "@/utils/verifyToken";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface IFormData {
   name: string;
@@ -7,7 +11,7 @@ interface IFormData {
   password: string;
   confirmPassword: string;
   phone: string;
-  termsAccepted: boolean;
+  termsAccepted?: boolean;
 }
 
 interface IErrors {
@@ -70,6 +74,7 @@ const InputField: React.FC<{
 const SignUpPage = () => {
   const navigate = useNavigate();
 
+  const [signUp, { error: resErr }] = useSignUpMutation();
   const [formData, setFormData] = useState<IFormData>({
     name: "",
     email: "",
@@ -125,20 +130,33 @@ const SignUpPage = () => {
     const newErrors: IErrors = {
       email: validateEmail(formData.email),
       ...validatePasswords(formData.password, formData.confirmPassword),
-      terms: validateTerms(formData.termsAccepted),
+      terms: validateTerms(formData.termsAccepted as boolean),
     };
 
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      // Simulate successful registration
-      // Redirect to login page after successful registration
-      navigate("/sign-in");
-      console.log(formData);
+      const toastId = toast.loading("Sign In.......");
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { termsAccepted, confirmPassword, ...userInfo } = formData;
+        console.log(userInfo);
+        await signUp(userInfo).unwrap();
+        toast.success("Sign In Successful", { id: toastId, duration: 2000 });
+        navigate("/sign-in");
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        toast.error(`Something went wrong:${err.data.message}`, {
+          id: toastId,
+          duration: 2000,
+        });
+      }
     }
   };
 

@@ -1,7 +1,12 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import brandImageUrl from "../assets/brand.svg";
+import { RootState } from "@/redux/store";
+import { logout } from "@/redux/features/auth/authSlice";
+import { toast } from "sonner";
+
 type TNavItem = {
   id: number;
   name: string;
@@ -10,38 +15,34 @@ type TNavItem = {
 };
 
 const Navbar: FC = () => {
-  const navItemData: TNavItem[] = [
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state: RootState) => state.auth);
+  const user = userInfo?.user?.name;
+  const navigate = useNavigate();
+  const [navItems, setNavItems] = useState<TNavItem[]>([
     { id: 1, name: "Home", url: "/", active: true },
     { id: 5, name: "About Us", url: "/about", active: false },
-    { id: 2, name: "Booking", url: "/booking", active: false },
-    {
-      id: 51,
-      name: "Cars",
-      url: "/cars",
-      active: false,
-    },
+    // { id: 2, name: "Booking", url: "/booking", active: false },
+    { id: 51, name: "Cars", url: "/cars", active: false },
+    { id: 4, name: "Dashboard", url: "/dashboard", active: false },
+    { id: 50, name: "Log In", url: "/sign-in", active: false },
+  ]);
 
-    {
-      id: 4,
-      name: "Contact",
-      url: "/about",
-      active: false,
-    },
-    {
-      id: 50,
-      name: "Login",
-      url: "/sign-in",
-      active: false,
-    },
-    // {
-    //   id: 51,
-    //   name: "Sign Up",
-    //   url: "/sign-up",
-    //   active: false,
-    // },
-  ];
+  useEffect(() => {
+    setNavItems((prevNavItems) => {
+      const updatedItems = prevNavItems.map((item) =>
+        item.id === 50
+          ? {
+              ...item,
+              name: user ? "Log Out" : "Log In",
+              url: user ? "" : "/sign-in",
+            }
+          : item
+      );
+      return user ? updatedItems : updatedItems.filter((item) => item.id !== 4);
+    });
+  }, [user]);
 
-  const [navItems, setNavItems] = useState<TNavItem[]>(navItemData);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
@@ -49,6 +50,11 @@ const Navbar: FC = () => {
   };
 
   const handleNavItemClick = (id: number) => {
+    if (user && id === 50) {
+      dispatch(logout());
+      toast.info("You have been logged out.");
+      navigate("/");
+    }
     setNavItems(
       navItems.map((item) => ({
         ...item,
@@ -104,7 +110,7 @@ const Navbar: FC = () => {
                   to={item.url}
                   className={`flex items-center py-2 px-3 ${
                     item.active ? "bg-blue-700 text-white" : "bg-transparent"
-                  } rounded md:bg-transparent md:text-blue-700 md:p-0 my-1 md:my-0  text-xl md:text-2xl hover:animate-pulse`}
+                  } rounded md:bg-transparent md:text-blue-700 md:p-0 my-1 md:my-0 text-xl md:text-2xl hover:animate-pulse`}
                   aria-current={item.active ? "page" : undefined}
                   onClick={() => handleNavItemClick(item.id)}
                 >
@@ -113,6 +119,14 @@ const Navbar: FC = () => {
               </li>
             ))}
           </ul>
+          {user && (
+            <li className="flex items-right text-xl md:text-2xl">
+              <span className="mr-4">
+                Welcome, <br />
+                {user}!
+              </span>
+            </li>
+          )}
         </div>
       </div>
     </nav>
