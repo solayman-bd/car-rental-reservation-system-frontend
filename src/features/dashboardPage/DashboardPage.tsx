@@ -26,7 +26,7 @@ const DashboardPage: FC = () => {
       />
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="mt-10 md:mt-0 md:p-6 w-full">
         {selectedSection === "overview" && (
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-6">

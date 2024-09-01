@@ -7,6 +7,7 @@ import NotFoundPage from "@/features/NotFoundPage/NotFoundPage";
 import SignInPage from "@/features/signInPage/SignInPage";
 import SignUpPage from "@/features/signUpPage/signUpPage";
 import AppLayout from "@/layout/AppLayout";
+import ProtectedRoute from "@/layout/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
 const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <DashboardPage />,
+        element: (
+          <ProtectedRoute role="user">
+            <DashboardPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

@@ -1,6 +1,6 @@
 // components/Sidebar.tsx
 import { FC } from "react";
-
+import hamIcon from "../assets/hamburgerIcon.svg";
 interface SidebarProps {
   showSideBar: boolean;
   setShowSideBar: (show: boolean) => void;
@@ -18,12 +18,12 @@ const Sidebar: FC<SidebarProps> = ({
     <>
       <img
         onClick={() => setShowSideBar(!showSideBar)}
-        className="h-10 w-10 rounded-md md:hidden cursor-pointer text-gray-700 z-20 bg-slate-300"
-        src="/path/to/hamburgerIcon.svg"
+        className="h-10 w-10 rounded-md md:hidden cursor-pointer text-gray-700 z-20 bg-slate-300 absolute top-0"
+        src={hamIcon}
         alt="hamburger-icon"
       />
       <aside
-        className={`absolute top-5 min-h-[95%] ${
+        className={`absolute top-10 min-h-[95%] ${
           showSideBar ? "translate-x-0" : "translate-x-[-500%]"
         } transition-transform duration-300 bg-gray-800 text-white p-4 rounded-sm md:static md:w-1/6 md:translate-x-0`}
       >
