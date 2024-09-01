@@ -68,6 +68,7 @@ const Navbar: FC = () => {
         active: item.id === id,
       }))
     );
+    toggleNavbar();
   };
 
   return (

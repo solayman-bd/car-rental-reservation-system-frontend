@@ -55,7 +55,7 @@ const SignInPage = () => {
   const dispatch = useDispatch();
   const [signIn] = useSignInMutation();
   const defaultValues = {
-    email: "soldaymdan@example.com",
+    email: "soldaymdanad@example.com",
     password: "password123",
   };
   const [formData, setFormData] = useState<IFormData>(defaultValues);

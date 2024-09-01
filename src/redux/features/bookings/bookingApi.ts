@@ -19,7 +19,38 @@ const bookingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["myBooking"],
     }),
+    bookACar: builder.mutation({
+      query: (bookingInfo) => ({
+        url: `/bookings`,
+        method: "POST",
+        body: bookingInfo,
+      }),
+      invalidatesTags: ["myBooking"],
+    }),
+    changeBookingStatus: builder.mutation({
+      query: (bookingInfo) => ({
+        url: `/bookings/change-booking-status`,
+        method: "POST",
+        body: bookingInfo,
+      }),
+      invalidatesTags: ["myBooking"],
+    }),
+    getAllBookings: builder.query({
+      query: () => {
+        return {
+          url: "/bookings/get-all-bookings",
+          method: "GET",
+        };
+      },
+      providesTags: ["getAllBookings"],
+    }),
   }),
 });
 
-export const { useGetMyBookingsQuery, useUpdateBookingMutation } = bookingApi;
+export const {
+  useGetMyBookingsQuery,
+  useUpdateBookingMutation,
+  useBookACarMutation,
+  useChangeBookingStatusMutation,
+  useGetAllBookingsQuery,
+} = bookingApi;

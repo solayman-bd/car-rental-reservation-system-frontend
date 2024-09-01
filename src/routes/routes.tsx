@@ -1,6 +1,7 @@
 import AboutUs from "@/features/aboutUs/AboutUs";
 import CarDetailPage from "@/features/carDetailPage/CarDetailPage";
 import CarsPage from "@/features/carsPage/CarsPage";
+import AdminDashboard from "@/features/dashboardPage/adminDashboard/AdminDashboard";
 
 import UserDashboardPage from "@/features/dashboardPage/userDashboard/UserDashboardPage";
 import { HomePage } from "@/features/homePage/HomePage";
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute role="user">
             <UserDashboardPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/admin-dashboard",
+        element: (
+          <ProtectedRoute role="admin">
+            <AdminDashboard />
           </ProtectedRoute>
         ),
       },

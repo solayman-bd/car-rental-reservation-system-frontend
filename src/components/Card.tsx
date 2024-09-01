@@ -1,22 +1,25 @@
 import React from "react";
 import noImageSrc from "../assets/no-image.png";
 // import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export interface ICar {
   _id: string;
   name: string;
   description: string;
-  price: number;
-  ratings: number;
-  images: string[];
-  isFeatured: boolean;
-  isAvailable: boolean;
-  cartQuantity?: number;
-  type: string;
-  features: string[];
-  customerReviews: { customerId: string; name: string; review: string }[];
+  color: string;
+  isElectric: boolean;
+  basicFeatures: string[];
+  additionalFeatures: {
+    name: string;
+    feePerHour: number;
+  }[];
+  pricePerHour: number;
+  isDeleted: boolean;
+  status: "available" | "unavailable";
+  isCurrentlyHired: boolean;
+  locationWhereAvailable: string[];
+  img: string[];
 }
-
 interface ICarCardProps {
   car: ICar;
   isProductListPage?: boolean;

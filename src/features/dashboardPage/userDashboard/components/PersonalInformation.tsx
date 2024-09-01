@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import UpdateUserModal from "./updateUserModal";
-import { IUser } from "@/redux/features/auth/authSlice";
 
 const PersonalInformation: FC = () => {
   const userInfo = useSelector((state: RootState) => state.auth);

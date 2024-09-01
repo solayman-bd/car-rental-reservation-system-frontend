@@ -9,7 +9,7 @@ const carApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: [],
+      providesTags: ["getAllCars"],
     }),
     getASingleCar: builder.query({
       query: (carId) => {
@@ -49,7 +49,7 @@ const carApi = baseApi.injectEndpoints({
         url: `cars/${carId}`,
         method: "DELETE",
       }),
-      invalidatesTags: [],
+      invalidatesTags: ["getAllCars"],
     }),
   }),
 });
