@@ -7,7 +7,7 @@ import PersonalInformation from "./components/PersonalInformation";
 import BookingManagement from "./components/BookingManagement";
 import PaymentManagement from "./components/PaymentManagement";
 
-const DashboardPage: FC = () => {
+const UserDashboardPage: FC = () => {
   const userInfo = useSelector((state: RootState) => state.auth);
   const [showSideBar, setShowSideBar] = useState(false);
   const [selectedSection, setSelectedSection] = useState("overview");
@@ -45,4 +45,4 @@ const DashboardPage: FC = () => {
   );
 };
 
-export default DashboardPage;
+export default UserDashboardPage;

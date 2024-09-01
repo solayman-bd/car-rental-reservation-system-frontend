@@ -3,7 +3,7 @@ import { useGetMyBookingsQuery } from "@/redux/features/bookings/bookingApi";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 
-import CustomModal from "./CustomModal";
+import UpdateBookingModal from "./UpdateBookingModal";
 import { IBooking } from "@/redux/features/bookings/bookingSlice";
 import DeleteModal from "./DeleteModal";
 
@@ -89,7 +89,7 @@ const BookingManagement: FC = () => {
                         >
                           Modify Booking
                         </button>
-                        <CustomModal
+                        <UpdateBookingModal
                           isModalOpen={isModalOpen}
                           setIsModalOpen={setIsModalOpen}
                           booking={booking}

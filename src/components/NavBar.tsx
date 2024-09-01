@@ -24,7 +24,14 @@ const Navbar: FC = () => {
     { id: 5, name: "About Us", url: "/about", active: false },
     // { id: 2, name: "Booking", url: "/booking", active: false },
     { id: 51, name: "Cars", url: "/cars", active: false },
-    { id: 4, name: "Dashboard", url: "/dashboard", active: false },
+    {
+      id: 4,
+      name: "Dashboard",
+      url: `${
+        userInfo.user?.role == "user" ? "/user-dashboard" : "admin-dashboard"
+      }`,
+      active: false,
+    },
     { id: 50, name: "Log In", url: "/sign-in", active: false },
   ]);
 

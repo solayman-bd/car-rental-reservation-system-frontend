@@ -1,7 +1,8 @@
 import AboutUs from "@/features/aboutUs/AboutUs";
 import CarDetailPage from "@/features/carDetailPage/CarDetailPage";
 import CarsPage from "@/features/carsPage/CarsPage";
-import DashboardPage from "@/features/dashboardPage/DashboardPage";
+
+import UserDashboardPage from "@/features/dashboardPage/userDashboard/UserDashboardPage";
 import { HomePage } from "@/features/homePage/HomePage";
 import NotFoundPage from "@/features/NotFoundPage/NotFoundPage";
 import SignInPage from "@/features/signInPage/SignInPage";
@@ -42,10 +43,10 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
-        path: "/dashboard",
+        path: "/user-dashboard",
         element: (
           <ProtectedRoute role="user">
-            <DashboardPage />
+            <UserDashboardPage />
           </ProtectedRoute>
         ),
       },

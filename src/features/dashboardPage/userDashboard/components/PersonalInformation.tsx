@@ -1,12 +1,14 @@
 // components/PersonalInformation.tsx
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
+import UpdateUserModal from "./updateUserModal";
+import { IUser } from "@/redux/features/auth/authSlice";
 
 const PersonalInformation: FC = () => {
   const userInfo = useSelector((state: RootState) => state.auth);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg mb-6">
       <h3 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -42,10 +44,18 @@ const PersonalInformation: FC = () => {
         </p>
       </div>
       <div className="mt-4">
-        <Button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        <Button
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          onClick={() => setIsModalOpen(!isModalOpen)}
+        >
           Update User
         </Button>
       </div>
+      <UpdateUserModal
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+        userInfo={userInfo}
+      />
     </div>
   );
 };

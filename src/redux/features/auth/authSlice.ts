@@ -8,6 +8,7 @@ export type TUser = {
   exp: number;
 };
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
   role: "user" | "admin";
@@ -18,7 +19,7 @@ export interface IUser {
   preferences: string[];
 }
 
-type TAuthState = {
+export type TAuthState = {
   user: null | IUser;
   token: null | string;
 };

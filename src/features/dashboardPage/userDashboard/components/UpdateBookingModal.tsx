@@ -51,7 +51,7 @@ interface CustomModalProps {
   booking?: IBooking;
 }
 
-const CustomModal: FC<CustomModalProps> = ({
+const UpdateBookingModal: FC<CustomModalProps> = ({
   isModalOpen,
   setIsModalOpen,
   booking,
@@ -207,4 +207,4 @@ const CustomModal: FC<CustomModalProps> = ({
   );
 };
 
-export default CustomModal;
+export default UpdateBookingModal;
