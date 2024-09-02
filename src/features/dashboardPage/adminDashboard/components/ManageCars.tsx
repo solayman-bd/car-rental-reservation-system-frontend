@@ -9,17 +9,25 @@ import {
 } from "@/redux/features/cars/carsApi";
 import { ICar } from "@/components/Card";
 import DeleteModalForAdmin from "./DeleteModalForAdmin";
+import UpdateCarModal from "./UpdateCarModal";
 
 const ManageCars: FC = () => {
   const [deleteModalInfo, setDeleteModalInfo] = useState<{
     isOpen: boolean;
     car: null | ICar;
   }>({ isOpen: false, car: null });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<ICar | null>(null);
 
   const { data: cars = [], refetch } = useGetAllCarsQuery(undefined);
   const [createCar] = useCreateACarMutation();
   const [updateCar] = useUpdateACarMutation();
   const [deleteCar] = useDeleteACarMutation();
+
+  const handleEditClick = (car: ICar) => {
+    setSelectedCar(car);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="p-6 border-gray-200 rounded-lg shadow-lg max-h-screen overflow-auto">
@@ -66,18 +74,19 @@ const ManageCars: FC = () => {
                     <div className="mt-2">
                       <img
                         src={
-                          car.img && car.img.length > 0
+                          car?.img && car?.img?.length > 0
                             ? car.img[0]
                             : noImageAvailable
                         }
                         alt={car.name || "No image available"}
-                        className="w-30 h-auto rounded-lg"
+                        className="rounded-lg"
+                        style={{ height: "100px", width: "100px" }}
                       />
                     </div>
                     <div className="flex space-x-4 mt-4">
                       <Button
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                        // onClick={() => handleEdit(car)}
+                        onClick={() => handleEditClick(car)}
                       >
                         Edit
                       </Button>
@@ -106,6 +115,13 @@ const ManageCars: FC = () => {
           </div>
         )}
       </div>
+      {selectedCar && (
+        <UpdateCarModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          car={selectedCar}
+        />
+      )}
     </div>
   );
 };

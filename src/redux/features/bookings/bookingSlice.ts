@@ -11,6 +11,7 @@ interface IUser {
 }
 
 export interface ICar {
+  _id: string;
   name: string;
   description: string;
   color: string;

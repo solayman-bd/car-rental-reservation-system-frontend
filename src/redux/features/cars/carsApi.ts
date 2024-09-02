@@ -26,7 +26,7 @@ const carApi = baseApi.injectEndpoints({
         method: "PUT",
         body: updateInfo,
       }),
-      invalidatesTags: [],
+      invalidatesTags: ["getAllCars"],
     }),
     createACar: builder.mutation({
       query: (carInfo) => ({
