@@ -17,6 +17,7 @@ export interface IUser {
   address: string;
   bookings: [string];
   preferences: string[];
+  status: "active" | "blocked";
 }
 
 export type TAuthState = {

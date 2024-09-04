@@ -23,6 +23,15 @@ const DashboardOverview: FC = () => {
 
   // Calculate total bookings and revenue
   const totalBookings = bookings?.data?.length || 0;
+  const currentlyActiveBookings =
+    bookings?.data?.filter((item: IBooking) => item.isPaid == false).length ||
+    0;
+
+  const totalPaidBookings =
+    bookings?.data?.filter((item: IBooking) => item.isPaid == true).length || 0;
+  const cancelledBookings =
+    bookings?.data?.filter((item: IBooking) => item.status == "cancelled")
+      .length || 0;
   const totalRevenue =
     bookings?.data
       ?.filter((item: IBooking) => item.isPaid == true)
@@ -46,6 +55,30 @@ const DashboardOverview: FC = () => {
         <div className="p-4 bg-white rounded-lg shadow">
           <h4 className="text-lg font-medium text-gray-700">Total Bookings</h4>
           <p className="text-2xl font-bold text-blue-500">{totalBookings}</p>
+        </div>
+        <div className="p-4 bg-white rounded-lg shadow">
+          <h4 className="text-lg font-medium text-gray-700">
+            Currently Active Bookings
+          </h4>
+          <p className="text-2xl font-bold text-blue-500">
+            {currentlyActiveBookings}
+          </p>
+        </div>
+        <div className="p-4 bg-white rounded-lg shadow">
+          <h4 className="text-lg font-medium text-gray-700">
+            Cancelled Bookings
+          </h4>
+          <p className="text-2xl font-bold text-blue-500">
+            {cancelledBookings}
+          </p>
+        </div>
+        <div className="p-4 bg-white rounded-lg shadow">
+          <h4 className="text-lg font-medium text-gray-700">
+            Total Paid Bookings
+          </h4>
+          <p className="text-2xl font-bold text-blue-500">
+            {totalPaidBookings}
+          </p>
         </div>
         <div className="p-4 bg-white rounded-lg shadow">
           <h4 className="text-lg font-medium text-gray-700">Available Cars</h4>
