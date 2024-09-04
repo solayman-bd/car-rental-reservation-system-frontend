@@ -1,6 +1,10 @@
 import { ICar } from "@/redux/features/bookings/bookingSlice";
-import { useUpdateACarMutation } from "@/redux/features/cars/carsApi";
+import {
+  useCreateACarMutation,
+  useUpdateACarMutation,
+} from "@/redux/features/cars/carsApi";
 import { FC, useState, useEffect, ChangeEvent, ReactNode } from "react";
+import { toast } from "sonner";
 
 interface ModalProps {
   isOpen: boolean;
@@ -45,15 +49,13 @@ const Modal: FC<ModalProps> = ({
 };
 
 interface CustomModalProps {
-  isModalOpen: boolean;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  car?: ICar;
+  isAddCarModalOpen: boolean;
+  setIsAddCarModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const UpdateCarModal: FC<CustomModalProps> = ({
-  isModalOpen,
-  setIsModalOpen,
-  car,
+const AddCarModal: FC<CustomModalProps> = ({
+  isAddCarModalOpen,
+  setIsAddCarModalOpen,
 }) => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -71,26 +73,7 @@ const UpdateCarModal: FC<CustomModalProps> = ({
   const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const [updateCar, { isLoading }] = useUpdateACarMutation();
-
-  useEffect(() => {
-    if (car) {
-      const modifiedAdFeature = car.additionalFeatures.map((item) => ({
-        name: item.name,
-        feePerHour: item.feePerHour,
-      }));
-      setError("");
-      setName(car.name || "");
-      setDescription(car.description || "");
-      setColor(car.color || "");
-      setIsElectric(car.isElectric || false);
-      setBasicFeatures(car.basicFeatures || []);
-      setAdditionalFeatures(modifiedAdFeature || []);
-      setPricePerHour(car.pricePerHour || 0);
-      setLocationWhereAvailable(car.locationWhereAvailable || []);
-      setImages(car.img || []);
-    }
-  }, [car]);
+  const [createACar, { isLoading }] = useCreateACarMutation();
 
   const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -181,23 +164,33 @@ const UpdateCarModal: FC<CustomModalProps> = ({
     };
 
     try {
-      await updateCar({
-        carId: car?._id,
-        updateInfo,
-      }).unwrap();
-
-      setIsModalOpen(false); // Close the modal after successful submission
+      await createACar(updateInfo).unwrap();
+      toast.success("Car created successfully..");
+      setIsAddCarModalOpen(false); // Close the modal after successful submission
+      setName("");
+      setDescription("");
+      setColor("");
+      setIsElectric(false);
+      setBasicFeatures([]);
+      setAdditionalFeatures([]);
+      setPricePerHour(0);
+      setLocationWhereAvailable([]);
+      setImages([]);
     } catch (err: any) {
-      setError(`Failed to update car details. ${err?.data?.message}`);
+      setError(
+        `Failed to update car details. ${
+          err?.data?.message
+        }. Errors:${err?.data?.errorMessages.map((item) => item.message)}`
+      );
     }
   };
 
   return (
     <Modal
-      isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
-      title={`Modify Car Details of ${car?.name}`}
-      description="Update the car details below. This action cannot be undone."
+      isOpen={isAddCarModalOpen}
+      onClose={() => setIsAddCarModalOpen(false)}
+      title={`Add A New Car`}
+      description="Adding new car enrich the store.."
     >
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">Name</label>
@@ -401,4 +394,4 @@ const UpdateCarModal: FC<CustomModalProps> = ({
   );
 };
 
-export default UpdateCarModal;
+export default AddCarModal;

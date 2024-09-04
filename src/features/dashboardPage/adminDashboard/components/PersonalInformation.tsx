@@ -24,10 +24,10 @@ const DashboardOverview: FC = () => {
   // Calculate total bookings and revenue
   const totalBookings = bookings?.data?.length || 0;
   const totalRevenue =
-    bookings?.data?.reduce(
-      (sum: number, booking: IBooking) => sum + booking.totalCost,
-      0
-    ) || 0;
+    bookings?.data
+      ?.filter((item: IBooking) => item.isPaid == true)
+      .reduce((sum: number, booking: IBooking) => sum + booking.totalCost, 0) ||
+    0;
 
   if (isCarsLoading || isBookingsLoading) {
     return (

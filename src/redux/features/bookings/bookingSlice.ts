@@ -42,6 +42,7 @@ export interface IBooking {
   status: string;
   additionalFeatures: string[];
   startLocation: string;
+  isPaid: boolean;
 }
 
 // Define the BookingState interface

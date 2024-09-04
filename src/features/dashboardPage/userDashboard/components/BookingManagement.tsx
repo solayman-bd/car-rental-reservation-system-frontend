@@ -78,12 +78,14 @@ const BookingManagement: FC = () => {
                         <button
                           className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600  ${
                             (booking.status == "approved" ||
-                              booking.status == "cancelled") &&
+                              booking.status == "cancelled" ||
+                              booking.status == "returned") &&
                             "cursor-not-allowed opacity-55"
                           }`}
                           disabled={
                             booking.status == "approved" ||
-                            booking.status == "cancelled"
+                            booking.status == "cancelled" ||
+                            booking.status == "returned"
                           }
                           onClick={() => setIsModalOpen(!isModalOpen)}
                         >
@@ -98,10 +100,14 @@ const BookingManagement: FC = () => {
                       <td className="py-2 px-4 border-b border-gray-200 text-sm text-gray-700 cursor-pointer">
                         <button
                           className={`bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600  ${
-                            booking.status == "approved" &&
+                            (booking.status == "approved" ||
+                              booking.status == "returned") &&
                             "cursor-not-allowed opacity-55"
                           }`}
-                          disabled={booking.status == "approved"}
+                          disabled={
+                            booking.status == "approved" ||
+                            booking.status == "returned"
+                          }
                           onClick={() => handleCancel(booking)}
                         >
                           Cancel Booking
