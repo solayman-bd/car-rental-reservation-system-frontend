@@ -1,4 +1,5 @@
 import AboutUs from "@/features/aboutUs/AboutUs";
+import BookingPage from "@/features/bookingPage/BookingPage";
 import CarDetailPage from "@/features/carDetailPage/CarDetailPage";
 import CarsPage from "@/features/carsPage/CarsPage";
 import AdminDashboard from "@/features/dashboardPage/adminDashboard/AdminDashboard";
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/sign-in",
     element: <SignInPage />,
+  },
+  {
+    path: "/booking/:carId",
+    element: <BookingPage />,
   },
   {
     element: <AppLayout />,

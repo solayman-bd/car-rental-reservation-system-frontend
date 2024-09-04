@@ -27,6 +27,7 @@ export interface ICar {
   isCurrentlyHired: boolean;
   locationWhereAvailable: string[];
   img: string[];
+  isFeatured: boolean;
 }
 // Define the Booking interface
 export interface IBooking {

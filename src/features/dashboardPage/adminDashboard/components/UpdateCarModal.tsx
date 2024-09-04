@@ -59,6 +59,7 @@ const UpdateCarModal: FC<CustomModalProps> = ({
   const [description, setDescription] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const [isElectric, setIsElectric] = useState<boolean>(false);
+  const [isFeatured, setIsFeatured] = useState<boolean>(false);
   const [basicFeatures, setBasicFeatures] = useState<string[]>([]);
   const [additionalFeatures, setAdditionalFeatures] = useState<
     { name: string; feePerHour: number }[]
@@ -89,6 +90,7 @@ const UpdateCarModal: FC<CustomModalProps> = ({
       setPricePerHour(car.pricePerHour || 0);
       setLocationWhereAvailable(car.locationWhereAvailable || []);
       setImages(car.img || []);
+      setIsFeatured(car.isFeatured || false);
     }
   }, [car]);
 
@@ -178,6 +180,7 @@ const UpdateCarModal: FC<CustomModalProps> = ({
       pricePerHour,
       locationWhereAvailable,
       img: images,
+      isFeatured,
     };
 
     try {
@@ -238,6 +241,17 @@ const UpdateCarModal: FC<CustomModalProps> = ({
           type="checkbox"
           checked={isElectric}
           onChange={(e) => setIsElectric(e.target.checked)}
+          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">
+          Is Featured
+        </label>
+        <input
+          type="checkbox"
+          checked={isFeatured}
+          onChange={(e) => setIsFeatured(e.target.checked)}
           className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
         />
       </div>

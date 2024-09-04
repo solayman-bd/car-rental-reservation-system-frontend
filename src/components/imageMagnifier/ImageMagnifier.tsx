@@ -7,7 +7,7 @@ interface MagnifierProps {
   zoom?: number;
 }
 
-const Magnifier: React.FC<MagnifierProps> = ({ imgSrc, zoom = 10 }) => {
+const Magnifier: React.FC<MagnifierProps> = ({ imgSrc, zoom = 4 }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const glassRef = useRef<HTMLDivElement>(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);

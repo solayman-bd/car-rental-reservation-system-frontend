@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-
-import Card, { ICar } from "@/components/Card";
-import { fakeCarData } from "../homePage/components/featuredCarsSection/falkeCarData";
+import Card from "@/components/Card";
+import { ICar } from "@/redux/features/bookings/bookingSlice";
+import { useGetAllCarsQuery } from "@/redux/features/cars/carsApi";
 
 const CarsPage: React.FC = () => {
-  //   const { data, error, isLoading } = useGetAllProductsQuery(undefined);
-  const { data, error, isLoading } = fakeCarData;
+  const { data, isLoading, error } = useGetAllCarsQuery(undefined);
+
   const [products, setProducts] = useState<ICar[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [maxPrice, setMaxPrice] = useState<number>(1000);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
@@ -17,14 +16,15 @@ const CarsPage: React.FC = () => {
 
   useEffect(() => {
     if (data) {
-      setProducts(data.data);
-      const allCategories: string[] = Array.from(
-        new Set(data.data.map((product: ICar) => product.type))
-      );
-      setCategories(allCategories);
-      const highestPrice = Math.max(
-        ...data.data.map((product: ICar) => product.price)
-      );
+      const cars = data.data;
+      setProducts(cars);
+
+      // Flatten and extract unique categories from basicFeatures
+      const allFeatures = cars.flatMap((car) => car.basicFeatures);
+      const uniqueCategories = Array.from(new Set(allFeatures));
+      setCategories(uniqueCategories);
+
+      const highestPrice = Math.max(...cars.map((car) => car.pricePerHour));
       setMaxPrice(highestPrice);
       setPriceRange([0, highestPrice]);
     }
@@ -60,19 +60,21 @@ const CarsPage: React.FC = () => {
 
   const filteredProducts = products
     .filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchQuery.toLowerCase())
+      (car) =>
+        car.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        car.description.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    .filter((product) =>
-      selectedCategory ? product.type === selectedCategory : true
+    .filter((car) =>
+      selectedCategory ? car.basicFeatures.includes(selectedCategory) : true
     )
     .filter(
-      (product) =>
-        product.price >= priceRange[0] && product.price <= priceRange[1]
+      (car) =>
+        car.pricePerHour >= priceRange[0] && car.pricePerHour <= priceRange[1]
     )
     .sort((a, b) =>
-      sortOrder === "asc" ? a.price - b.price : b.price - a.price
+      sortOrder === "asc"
+        ? a.pricePerHour - b.pricePerHour
+        : b.pricePerHour - a.pricePerHour
     );
 
   if (isLoading) {
@@ -91,7 +93,7 @@ const CarsPage: React.FC = () => {
     <div className="min-h-screen my-16">
       <h1 className="text-4xl font-bold mb-4 text-center">All Cars</h1>
       <div className="flex flex-col sm:flex-row min-h-[90%]">
-        <aside className="w-full sm:w-64 p-4 border border-gray-100  shadow-sm">
+        <aside className="w-full sm:w-64 p-4 border border-gray-100 shadow-sm">
           <h2 className="text-xl font-bold mb-4">Filters</h2>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">Search</label>
@@ -160,8 +162,8 @@ const CarsPage: React.FC = () => {
         </aside>
         <main className="flex-1 p-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-scroll h-[90%]">
-            {filteredProducts.map((product) => (
-              <Card isProductListPage={true} key={product._id} car={product} />
+            {filteredProducts.map((car) => (
+              <Card isProductListPage={true} key={car._id} car={car} />
             ))}
           </div>
         </main>
