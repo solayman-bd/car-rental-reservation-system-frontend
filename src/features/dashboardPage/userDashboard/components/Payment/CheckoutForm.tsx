@@ -33,7 +33,7 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
     }
 
     // Create payment method
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const { error } = await stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
     });
@@ -58,7 +58,8 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       );
       // Close the form
       onClose();
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       toast.error(`Failed to make payment.. ${err.data.message}`);
     }
   };

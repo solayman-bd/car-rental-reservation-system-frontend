@@ -2,11 +2,12 @@ import noImageAvailable from "../../../../assets/no-image.png";
 import { FC, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useGetAllCarsQuery } from "@/redux/features/cars/carsApi";
-import { ICar } from "@/components/Card";
+
 import DeleteModalForAdmin from "./DeleteModalForAdmin";
 import UpdateCarModal from "./UpdateCarModal";
 import AddCarModal from "./addCarModal";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { ICar } from "@/redux/features/bookings/bookingSlice";
 
 const ManageCars: FC = () => {
   const [deleteModalInfo, setDeleteModalInfo] = useState<{

@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import UpdateUserModal from "./updateUserModal";
 import { useGetAllCarsQuery } from "@/redux/features/cars/carsApi";
 import { useGetAllBookingsQuery } from "@/redux/features/bookings/bookingApi";
-import { ICar } from "@/components/Card";
-import { IBooking } from "@/redux/features/bookings/bookingSlice";
+
+import { IBooking, ICar } from "@/redux/features/bookings/bookingSlice";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 const DashboardOverview: FC = () => {

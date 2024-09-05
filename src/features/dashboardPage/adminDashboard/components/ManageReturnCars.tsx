@@ -1,7 +1,7 @@
 import { useGetAllBookingsQuery } from "@/redux/features/bookings/bookingApi";
 import { IBooking } from "@/redux/features/bookings/bookingSlice";
 import { useState, useEffect } from "react";
-import ReturnCarModal from "./returnCarModal";
+import ReturnCarModal from "./ReturnCarModal";
 
 const ManageReturnCars = () => {
   const { data: bookings = [], isLoading } = useGetAllBookingsQuery(undefined);

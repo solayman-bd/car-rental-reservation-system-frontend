@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Car Rental Reservation System Backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+Welcome to the Car Rental Reservation System Backend repository! This project provides a robust backend solution for managing car rentals, bookings, and user authentication within a web application environment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Demo
 
-## Expanding the ESLint configuration
+Explore the live demo of the application [here](https://car-rental-reservation-system-backend-3.onrender.com).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- **User Management**: Register and authenticate users with roles (admin and user).
+- **Car Management**: CRUD operations for managing car listings, including soft deletes.
+- **Booking Management**: Enable users to book cars and admins to oversee and manage bookings.
+- **Authentication & Authorization**: Secure endpoints with JWT-based authentication and role-based access control.
+- **Error Handling**: Proper validation and error responses for API requests.
+- **Transaction Support**: Ensure data integrity with transactional support (if applicable).
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Technology Stack
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Programming Language**: TypeScript
+- **Web Framework**: Express.js
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: JSON Web Tokens (JWT)
+- **Documentation**: Swagger/OpenAPI (optional)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Getting Started
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+To get started with the Car Rental Reservation System Backend, follow these steps:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/solayman-bd/car-rental-reservation-system-frontend.git
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+3. **Set backend Variables**
+   Go to ./redux/api/baseApi:
+   ```bash
+      const backendUrl = {
+   BACKEND_DEV_BASE_URL: #use your development base url,
+   BACKEND_PROD_BASE_URL: #use your production base url
+   };
+   ```
+4. **Start the Development Server**
+
+   ```bash
+   npm run dev
+
+   ```

@@ -1,6 +1,7 @@
 const backendUrl = {
   BACKEND_DEV_BASE_URL: "http://localhost:5000/api",
-  BACKEND_PROD_BASE_URL: "https://campers-shop-backend.onrender.com/api",
+  BACKEND_PROD_BASE_URL:
+    "https://car-rental-reservation-system-backend-three.vercel.app/api",
 };
 
 import {
@@ -15,7 +16,7 @@ import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: backendUrl.BACKEND_DEV_BASE_URL,
+  baseUrl: backendUrl.BACKEND_PROD_BASE_URL,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

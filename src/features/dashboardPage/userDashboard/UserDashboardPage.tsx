@@ -1,14 +1,12 @@
 // pages/DashboardPage.tsx
 import { FC, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+
 import Sidebar from "./components/Sidebar";
 import PersonalInformation from "./components/PersonalInformation";
 import BookingManagement from "./components/BookingManagement";
 import PaymentManagement from "./components/PaymentManagement";
 
 const UserDashboardPage: FC = () => {
-  const userInfo = useSelector((state: RootState) => state.auth);
   const [showSideBar, setShowSideBar] = useState(false);
   const [selectedSection, setSelectedSection] = useState("overview");
 

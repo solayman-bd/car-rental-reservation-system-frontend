@@ -1,9 +1,5 @@
-import { ICar } from "@/redux/features/bookings/bookingSlice";
-import {
-  useCreateACarMutation,
-  useUpdateACarMutation,
-} from "@/redux/features/cars/carsApi";
-import { FC, useState, useEffect, ChangeEvent, ReactNode } from "react";
+import { useCreateACarMutation } from "@/redux/features/cars/carsApi";
+import { FC, useState, ChangeEvent, ReactNode } from "react";
 import { toast } from "sonner";
 
 interface ModalProps {
@@ -70,7 +66,7 @@ const AddCarModal: FC<CustomModalProps> = ({
     string[]
   >([]);
   const [images, setImages] = useState<string[]>([]);
-  const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+
   const [error, setError] = useState<string | null>(null);
 
   const [createACar, { isLoading }] = useCreateACarMutation();
@@ -80,7 +76,6 @@ const AddCarModal: FC<CustomModalProps> = ({
     if (!files) return;
 
     const newFiles = Array.from(files);
-    setNewImageFiles(newFiles);
 
     const base64Images: string[] = await Promise.all(
       newFiles.map((file) => convertToBase64(file))
@@ -176,11 +171,14 @@ const AddCarModal: FC<CustomModalProps> = ({
       setPricePerHour(0);
       setLocationWhereAvailable([]);
       setImages([]);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(
         `Failed to update car details. ${
           err?.data?.message
-        }. Errors:${err?.data?.errorMessages.map((item) => item.message)}`
+        }. Errors:${err?.data?.errorMessages.map(
+          (item: { message: string }) => item.message
+        )}`
       );
     }
   };

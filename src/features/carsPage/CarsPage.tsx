@@ -20,11 +20,13 @@ const CarsPage: React.FC = () => {
       setProducts(cars);
 
       // Flatten and extract unique categories from basicFeatures
-      const allFeatures = cars.flatMap((car) => car.basicFeatures);
+      const allFeatures = cars.flatMap((car: ICar) => car.basicFeatures);
       const uniqueCategories = Array.from(new Set(allFeatures));
-      setCategories(uniqueCategories);
+      setCategories(uniqueCategories as string[]);
 
-      const highestPrice = Math.max(...cars.map((car) => car.pricePerHour));
+      const highestPrice = Math.max(
+        ...cars.map((car: ICar) => car.pricePerHour)
+      );
       setMaxPrice(highestPrice);
       setPriceRange([0, highestPrice]);
     }

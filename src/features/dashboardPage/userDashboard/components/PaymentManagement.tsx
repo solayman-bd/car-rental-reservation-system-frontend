@@ -175,7 +175,7 @@ const PaymentManagement: FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {/* Assume payment date is available in booking */}
-                    {booking.paymentDate || "N/A"}
+                    {"N/A"}
                   </td>
                 </tr>
               ))}

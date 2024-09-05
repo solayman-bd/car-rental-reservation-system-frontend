@@ -69,7 +69,7 @@ const UpdateCarModal: FC<CustomModalProps> = ({
     string[]
   >([]);
   const [images, setImages] = useState<string[]>([]);
-  const [newImageFiles, setNewImageFiles] = useState<File[]>([]);
+
   const [error, setError] = useState<string | null>(null);
 
   const [updateCar, { isLoading }] = useUpdateACarMutation();
@@ -99,7 +99,6 @@ const UpdateCarModal: FC<CustomModalProps> = ({
     if (!files) return;
 
     const newFiles = Array.from(files);
-    setNewImageFiles(newFiles);
 
     const base64Images: string[] = await Promise.all(
       newFiles.map((file) => convertToBase64(file))

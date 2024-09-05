@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ICar } from "@/components/Card";
+
+import { ICar } from "@/redux/features/bookings/bookingSlice";
 import { useDeleteACarMutation } from "@/redux/features/cars/carsApi";
 
 import { toast } from "sonner";

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSignUpMutation } from "@/redux/features/auth/authApi";
-import { verifyToken } from "@/utils/verifyToken";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -75,7 +73,7 @@ const InputField: React.FC<{
 const SignUpPage = () => {
   const navigate = useNavigate();
 
-  const [signUp, { error: resErr }] = useSignUpMutation();
+  const [signUp] = useSignUpMutation();
   const [formData, setFormData] = useState<IFormData>({
     name: "",
     email: "",
