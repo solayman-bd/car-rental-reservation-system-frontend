@@ -11,7 +11,6 @@ const CarDetailPage: React.FC = () => {
   const navigate = useNavigate();
   const { carId } = useParams<{ carId: string }>();
   const { data, error, isLoading } = useGetASingleCarQuery(carId);
-
   const [product, setProduct] = useState<ICar | null>(null);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
 
@@ -101,7 +100,6 @@ const CarDetailPage: React.FC = () => {
                 <p className="text-gray-600 dark:text-gray-300 text-2xl mb-4">
                   {product?.description}
                 </p>
-
                 <div className="mb-4">
                   <span className="font-bold text-gray-700 dark:text-gray-300 text-xl">
                     Features:
@@ -115,7 +113,6 @@ const CarDetailPage: React.FC = () => {
                     ))}
                   </ul>
                 </div>
-
                 {/* Additional Features Selection */}
                 <div className="mb-4">
                   <span className="font-bold text-gray-700 dark:text-gray-300 text-xl">
@@ -138,7 +135,6 @@ const CarDetailPage: React.FC = () => {
                     ))}
                   </ul>
                 </div>
-
                 <div className="flex mb-4 flex-col md:flex-row">
                   <div className="mr-4 text-xl">
                     <span className="font-bold text-gray-700 dark:text-gray-300 ">
@@ -159,7 +155,13 @@ const CarDetailPage: React.FC = () => {
                     </span>
                   </div>
                 </div>
-
+                <span className=" font-bold"> Location to start:</span>
+                {product?.locationWhereAvailable.map((item, index) => (
+                  <span key={index} className="mx-1">
+                    {item}
+                    {index < product?.locationWhereAvailable.length - 1 && ","}
+                  </span>
+                ))}
                 {/* <div className="mb-4">
                   <span className="font-bold text-gray-700 dark:text-gray-300 text-xl">
                     Customer Reviews:

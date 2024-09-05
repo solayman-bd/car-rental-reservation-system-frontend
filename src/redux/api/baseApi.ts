@@ -45,7 +45,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   // }
   if (result?.error?.status === 401) {
     //* Send Refresh
-    console.log("Sending refresh token");
+    // console.log("Sending refresh token");
 
     const res = await fetch(
       `${backendUrl.BACKEND_DEV_BASE_URL}/refresh-token`,

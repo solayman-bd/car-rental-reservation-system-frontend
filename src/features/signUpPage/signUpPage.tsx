@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useSignUpMutation } from "@/redux/features/auth/authApi";
 import { verifyToken } from "@/utils/verifyToken";
 import React, { useState } from "react";
@@ -145,10 +146,16 @@ const SignUpPage = () => {
       try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { termsAccepted, confirmPassword, ...userInfo } = formData;
-        console.log(userInfo);
-        await signUp(userInfo).unwrap();
-        toast.success("Sign In Successful", { id: toastId, duration: 2000 });
-        navigate("/sign-in");
+        if (userInfo.phone) {
+          await signUp(userInfo).unwrap();
+          toast.success("Sign In Successful", { id: toastId, duration: 2000 });
+          navigate("/sign-in");
+        } else {
+          const { phone, ...rest } = userInfo;
+          await signUp(rest).unwrap();
+          toast.success("Sign In Successful", { id: toastId, duration: 2000 });
+          navigate("/sign-in");
+        }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {

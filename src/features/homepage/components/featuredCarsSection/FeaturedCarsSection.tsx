@@ -9,7 +9,6 @@ import { ICar } from "@/redux/features/bookings/bookingSlice";
 const FeaturedCarsSection = () => {
   const { data, isLoading, error } = useGetAllCarsQuery(undefined);
   const cars = data?.data?.filter((item: ICar) => item.isFeatured);
-
   const settings = {
     dots: true,
     infinite: true,

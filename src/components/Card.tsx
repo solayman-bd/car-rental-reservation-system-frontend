@@ -52,6 +52,13 @@ const Card: React.FC<ICarCardProps> = ({ car, isProductListPage }) => {
             </span>
           </p>
         </div>
+        Location to start:
+        {car.locationWhereAvailable.map((item, index) => (
+          <span key={index} className="mr-1">
+            {item}
+            {index < car.locationWhereAvailable.length - 1 && ","}
+          </span>
+        ))}
         <button
           type="button"
           className={`flex items-center justify-center rounded-md ${

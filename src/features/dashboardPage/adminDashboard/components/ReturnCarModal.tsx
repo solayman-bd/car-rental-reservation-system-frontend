@@ -120,7 +120,6 @@ const ReturnCarModal: FC<ReturnCarModalProps> = ({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(`Failed to return the car. ${err.data.message}.`);
-      console.log(err);
     }
   };
 

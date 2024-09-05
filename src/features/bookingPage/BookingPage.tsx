@@ -46,16 +46,48 @@ const BookingPage = () => {
         : [...prev, featureName]
     );
   };
-
   const validateForm = () => {
     if (!nid || !license || !hiringDate || !startTime || !startLocation) {
       toast.error("Please fill out all required fields");
       return false;
     }
-    if (new Date(hiringDate) < new Date()) {
+
+    const currentDate = new Date(); // Current date and time
+
+    // Create a new Date object for today, stripping out the time part
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Create a new Date object for the selected hiring date, stripping out the time part
+    const selectedDate = new Date(hiringDate);
+    selectedDate.setHours(0, 0, 0, 0);
+
+    // Check if the hiring date is in the past (ignoring the time)
+    if (selectedDate < today) {
       toast.error("Hiring date must be today or later");
       return false;
     }
+
+    // If hiring date is today, validate that start time is in the future
+    if (selectedDate.getTime() === today.getTime()) {
+      const [startHour, startMinute] = startTime.split(":");
+
+      // Create a Date object combining hiringDate and startTime
+      const selectedStartTime = new Date(hiringDate);
+      selectedStartTime.setHours(
+        parseInt(startHour),
+        parseInt(startMinute),
+        0,
+        0
+      );
+
+      // Compare selected start time with the current time
+      if (selectedStartTime <= currentDate) {
+        toast.error("Start time must be later than the current time");
+        return false;
+      }
+    }
+
     return true;
   };
 

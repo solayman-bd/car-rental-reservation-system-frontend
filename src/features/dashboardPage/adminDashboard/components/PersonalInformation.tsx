@@ -24,8 +24,9 @@ const DashboardOverview: FC = () => {
   // Calculate total bookings and revenue
   const totalBookings = bookings?.data?.length || 0;
   const currentlyActiveBookings =
-    bookings?.data?.filter((item: IBooking) => item.isPaid == false).length ||
-    0;
+    bookings?.data?.filter(
+      (item: IBooking) => item.isPaid == false && item.status != "cancelled"
+    ).length || 0;
 
   const totalPaidBookings =
     bookings?.data?.filter((item: IBooking) => item.isPaid == true).length || 0;

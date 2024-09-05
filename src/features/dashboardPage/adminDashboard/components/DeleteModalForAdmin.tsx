@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ICar } from "@/components/Card";
 import { useDeleteACarMutation } from "@/redux/features/cars/carsApi";
 
@@ -34,7 +35,6 @@ const DeleteModalForAdmin: React.FC<IDeleteModalProps> = ({
         await deleteACar(deleteModalInfo.car._id).unwrap(); // Unwrap the promise to handle success or error
         toast.error(`${deleteModalInfo.car.name} is deleted ........`);
       } catch (error) {
-        console.log(error);
         toast.error(`Failed to delete ${deleteModalInfo.car.name} ........`);
       }
     }
