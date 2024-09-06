@@ -101,7 +101,7 @@ const SignUpPage = () => {
     if (name === "email") {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        email: validateEmail(value),
+        email: validateEmail(value.toLocaleLowerCase().trim()),
       }));
     } else if (name === "password" || name === "confirmPassword") {
       // Validate both password and confirmPassword with the latest values

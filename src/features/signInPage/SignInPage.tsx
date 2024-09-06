@@ -55,8 +55,8 @@ const SignInPage = () => {
   const dispatch = useDispatch();
   const [signIn] = useSignInMutation();
   const defaultValues = {
-    email: "soldaymdanad@example.com",
-    password: "password123",
+    email: "",
+    password: "",
   };
   const [formData, setFormData] = useState<IFormData>(defaultValues);
 
@@ -103,19 +103,23 @@ const SignInPage = () => {
 
       try {
         const userInfo = {
-          email: formData.email,
+          email: formData.email.toLocaleLowerCase().trim(),
           password: formData.password,
         };
         const res = await signIn(userInfo).unwrap();
+
         const user = verifyToken(res.accessToken) as TUser;
         if (user) {
           dispatch(setUser({ user: res.data, token: res.accessToken }));
           toast.success("Logged in", { id: toastId, duration: 2000 });
           navigate("/");
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        toast.error("Something went wrong", { id: toastId, duration: 2000 });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        toast.error(`Something went wrong: ${err.data.message}`, {
+          id: toastId,
+          duration: 2000,
+        });
       }
     }
   };

@@ -37,6 +37,7 @@ const DeleteModal: React.FC<IDeleteModalProps> = ({
       try {
         await updateBooking(data).unwrap(); // Unwrap the promise to handle success or error
         toast.error(`${deleteModalInfo.booking.car.name} is deleted ........`);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         toast.error(
           `Failed to delete ${deleteModalInfo.booking.car.name} ........`

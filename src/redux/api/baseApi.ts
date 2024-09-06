@@ -4,6 +4,11 @@ const backendUrl = {
     "https://car-rental-reservation-system-backend-three.vercel.app/api",
 };
 
+const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? backendUrl.BACKEND_DEV_BASE_URL
+    : backendUrl.BACKEND_PROD_BASE_URL;
+
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -16,7 +21,7 @@ import { RootState } from "../store";
 import { logout, setUser } from "../features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: backendUrl.BACKEND_PROD_BASE_URL,
+  baseUrl: baseUrl, // Use dynamic baseUrl
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
@@ -38,26 +43,13 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = await baseQuery(args, api, extraOptions);
 
-  // if (result?.error?.status === 404) {
-  //   toast.error(result.error.data.message);
-  // }
-  // if (result?.error?.status === 403) {
-  //   toast.error(result.error.data.message);
-  // }
   if (result?.error?.status === 401) {
-    //* Send Refresh
-    // console.log("Sending refresh token");
-
-    const res = await fetch(
-      `${backendUrl.BACKEND_DEV_BASE_URL}/refresh-token`,
-      {
-        method: "POST",
-        credentials: "include",
-      }
-    );
+    const res = await fetch(`${baseUrl}/refresh-token`, {
+      method: "POST",
+      credentials: "include",
+    });
 
     const data = await res.json();
-    console.log(data);
     if (data?.data?.accessToken) {
       const user = (api.getState() as RootState).auth.user;
 

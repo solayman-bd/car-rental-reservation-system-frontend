@@ -60,7 +60,9 @@ const CheckoutForm: FC<CheckoutFormProps> = ({
       onClose();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      toast.error(`Failed to make payment.. ${err.data.message}`);
+      toast.error(
+        `Failed to make payment.. Please Check if you have entered correct credentials..`
+      );
     }
   };
 
